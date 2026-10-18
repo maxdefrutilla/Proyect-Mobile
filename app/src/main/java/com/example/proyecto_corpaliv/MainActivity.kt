@@ -25,7 +25,6 @@ class MainActivity : ComponentActivity() {
                             .padding(innerPadding),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        // Llamamos a tu formulario conectado a Room y al ViewModel
                         FormularioAlianzaScreen()
                     }
                 }
