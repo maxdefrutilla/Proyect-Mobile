@@ -189,9 +189,7 @@ fun CorpalivApp(
     }
 }
 
-/**
- * Devuelve el título que corresponde a cada ruta.
- */
+
 private fun tituloDeRuta(ruta: String?): String = when {
     ruta == Rutas.PERFIL -> "Registro de Empresa / Donante"
     ruta == Rutas.INICIO || ruta == null -> "CORPALIV"

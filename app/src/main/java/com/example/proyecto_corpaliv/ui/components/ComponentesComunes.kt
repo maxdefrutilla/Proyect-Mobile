@@ -56,12 +56,6 @@ fun EncabezadoSeccion(
     }
 }
 
-/**
- * Estado vacío para listas filtradas.
- *
- * Se usa cuando un filtro o una búsqueda no arroja resultados, para explicar
- * al usuario qué ocurrió en lugar de mostrar una pantalla en blanco.
- */
 @Composable
 fun EstadoVacio(
     mensaje: String,
@@ -89,12 +83,7 @@ fun EstadoVacio(
     }
 }
 
-/**
- * Aviso permanente sobre la naturaleza ficticia de los datos mostrados.
- *
- * Es un requisito del caso (Protección de Datos): la aplicación no debe
- * mostrar información real de personas, empresas o beneficiarios.
- */
+
 @Composable
 fun AvisoDatosFicticios(modifier: Modifier = Modifier) {
     Surface(
@@ -121,12 +110,7 @@ fun AvisoDatosFicticios(modifier: Modifier = Modifier) {
     }
 }
 
-/**
- * Tarjeta con una cifra destacada y su etiqueta.
- *
- * El contenido se describe en una sola lectura para que las tecnologías de
- * asistencia no repitan datos idénticos por separado.
- */
+
 @Composable
 fun IndicadorImpacto(
     valor: String,
@@ -168,9 +152,7 @@ fun IndicadorImpacto(
     }
 }
 
-/**
- * Fila con icono y texto, usada dentro de las tarjetas de detalle.
- */
+
 @Composable
 fun DatoConIcono(
     icono: ImageVector,
@@ -199,12 +181,7 @@ fun DatoConIcono(
     }
 }
 
-/**
- * Etiqueta informativa reutilizable.
- *
- * Se implementa con un `Surface` en lugar de un chip deshabilitado para
- * conservar el contraste de color de la etiqueta.
- */
+
 @Composable
 fun EtiquetaInformativa(
     texto: String,

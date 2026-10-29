@@ -96,9 +96,7 @@ fun TarjetaPrograma(
     }
 }
 
-/**
- * Tarjeta resumida de un caso de impacto.
- */
+
 @Composable
 fun TarjetaCaso(
     caso: CasoImpacto,
@@ -178,9 +176,7 @@ fun TarjetaCaso(
     }
 }
 
-/**
- * Tarjeta de una oferta del catálogo (producto, servicio o iniciativa RSE).
- */
+
 @Composable
 fun TarjetaOferta(
     oferta: OfertaCatalogo,
@@ -256,9 +252,7 @@ fun TarjetaOferta(
     }
 }
 
-/**
- * Tarjeta destacada para una modalidad de colaboración.
- */
+
 @Composable
 fun TarjetaModalidad(
     titulo: String,
