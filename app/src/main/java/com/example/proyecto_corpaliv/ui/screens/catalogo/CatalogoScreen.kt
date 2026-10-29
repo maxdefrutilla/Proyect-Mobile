@@ -70,7 +70,7 @@ fun CatalogoScreen(
                 onValueChange = viewModel::buscar,
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Buscar en el catálogo") },
-                placeholder = { Text("Ej.: jabones, asesoría, voluntariado") },
+                placeholder = { Text("Ej.: Jabones, asesoría, voluntariado") },
                 leadingIcon = {
                     Icon(Icons.Filled.Search, contentDescription = null)
                 },
