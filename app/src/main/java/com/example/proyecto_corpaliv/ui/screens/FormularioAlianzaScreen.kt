@@ -51,16 +51,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.proyecto_corpaliv.viewmodel.SolicitudViewModel
 import java.util.Calendar
 
-/**
- * Formulario de vinculación empresarial.
- *
- * Toda la validación y el estado viven en `SolicitudViewModel`. La pantalla
- * solo dibuja los valores y los mensajes de error que el ViewModel expone,
- * de modo que la lógica queda desacoplada de la interfaz.
- *
- * Cada campo inválido muestra icono de advertencia, borde de error y texto de
- * apoyo, cumpliendo el requisito de retroalimentación visual.
- */
+
 @Composable
 fun FormularioAlianzaScreen(
     onVerSolicitudes: () -> Unit,

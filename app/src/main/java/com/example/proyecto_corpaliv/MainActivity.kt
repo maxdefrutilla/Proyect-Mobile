@@ -11,12 +11,6 @@ import androidx.compose.ui.Modifier
 import com.example.proyecto_corpaliv.ui.navigation.CorpalivApp
 import com.example.proyecto_corpaliv.ui.theme.Proyecto_CorpalivTheme
 
-/**
- * Punto de entrada de la aplicación.
- *
- * La actividad solo monta el tema institucional y el contenedor de navegación;
- * toda la lógica de pantallas vive en `ui/navigation` y `ui/screens`.
- */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
