@@ -34,12 +34,6 @@ import com.example.proyecto_corpaliv.ui.components.EstadoVacio
 import com.example.proyecto_corpaliv.ui.components.TarjetaPrograma
 import com.example.proyecto_corpaliv.viewmodel.ProgramasViewModel
 
-/**
- * Pantalla con el listado completo de programas de inclusión laboral.
- *
- * El filtro por categoría se controla desde el ViewModel y la lista se
- * anima al cambiar de selección.
- */
 @Composable
 fun ProgramasScreen(
     onOpenPrograma: (String) -> Unit,

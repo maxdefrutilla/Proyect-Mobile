@@ -28,9 +28,7 @@ import com.example.proyecto_corpaliv.data.content.CasoImpacto
 import com.example.proyecto_corpaliv.data.content.OfertaCatalogo
 import com.example.proyecto_corpaliv.data.content.ProgramaInclusional
 
-/**
- * Tarjeta resumida de un programa de inclusión laboral.
- */
+
 @Composable
 fun TarjetaPrograma(
     programa: ProgramaInclusional,

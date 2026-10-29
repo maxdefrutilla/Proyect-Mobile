@@ -28,12 +28,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
-/**
- * Encabezado de sección con jerarquía visual.
- *
- * Se marca como encabezado semántico para que TalkBack anuncie correctamente
- * la estructura del contenido (diseño inclusivo).
- */
+
 @Composable
 fun EncabezadoSeccion(
     titulo: String,

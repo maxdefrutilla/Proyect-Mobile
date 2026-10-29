@@ -32,13 +32,6 @@ private val ItemsMenu = listOf(
     ItemMenu(Rutas.CATALOGO, "Catálogo", Icons.Filled.Storefront)
 )
 
-/**
- * Barra inferior de navegación principal.
- *
- * Se usa el patrón recomendado de Compose Navigation: al cambiar de sección se
- * conserva el estado previo de cada pestaña (`saveState` / `restoreState`) y
- * se evita apilar destinos duplicados (`launchSingleTop`).
- */
 @Composable
 fun BarraNavegacion(navController: NavHostController) {
     val entradaActual by navController.currentBackStackEntryAsState()

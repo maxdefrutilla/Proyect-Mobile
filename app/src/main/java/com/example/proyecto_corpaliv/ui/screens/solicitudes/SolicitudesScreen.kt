@@ -39,14 +39,7 @@ import com.example.proyecto_corpaliv.ui.components.EncabezadoSeccion
 import com.example.proyecto_corpaliv.ui.components.EstadoVacio
 import com.example.proyecto_corpaliv.viewmodel.SolicitudViewModel
 
-/**
- * Pantalla con las solicitudes de alianza guardadas en la base de datos local.
- *
- * Expone en la interfaz el flujo `listaSolicitudes` del `SolicitudViewModel`,
- * de modo que la persistencia con Room no solo ocurre, sino que además puede
- * verse y demostrarse desde la propia aplicación: al enviar el formulario, el
- * registro aparece de inmediato en esta lista.
- */
+
 @Composable
 fun SolicitudesScreen(
     modifier: Modifier = Modifier,

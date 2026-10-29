@@ -1,11 +1,5 @@
 package com.example.proyecto_corpaliv.ui.navigation
 
-/**
- * Rutas de navegación de la aplicación.
- *
- * Se centralizan aquí los identificadores de cada destino para evitar valores
- * "mágicos" repartidos por las pantallas.
- */
 object Rutas {
 
     // Destinos principales (visibles en la barra inferior)

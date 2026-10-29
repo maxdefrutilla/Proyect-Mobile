@@ -43,12 +43,7 @@ import com.example.proyecto_corpaliv.ui.components.EstadoVacio
 import com.example.proyecto_corpaliv.ui.components.TarjetaOferta
 import com.example.proyecto_corpaliv.viewmodel.CatalogoViewModel
 
-/**
- * Catálogo de productos, servicios e iniciativas RSE.
- *
- * La búsqueda y el filtro por tipo se combinan en el ViewModel; la grilla se
- * adapta al ancho de pantalla gracias a `GridCells.Adaptive`.
- */
+
 @Composable
 fun CatalogoScreen(
     onOpenOferta: (String) -> Unit,

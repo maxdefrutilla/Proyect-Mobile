@@ -34,12 +34,6 @@ import com.example.proyecto_corpaliv.ui.components.EstadoVacio
 import com.example.proyecto_corpaliv.ui.components.TarjetaCaso
 import com.example.proyecto_corpaliv.viewmodel.ImpactoViewModel
 
-/**
- * Pantalla de casos de impacto.
- *
- * Todos los relatos y cifras son ficticios y están anonimizados, en línea con
- * la normativa de protección de datos del caso.
- */
 @Composable
 fun ImpactoScreen(
     onOpenCaso: (String) -> Unit,

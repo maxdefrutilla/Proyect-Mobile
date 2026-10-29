@@ -30,9 +30,6 @@ import com.example.proyecto_corpaliv.ui.components.EstadoVacio
 import com.example.proyecto_corpaliv.ui.components.IconosContenido
 import com.example.proyecto_corpaliv.ui.components.IndicadorImpacto
 
-/**
- * Detalle de un caso de impacto.
- */
 @Composable
 fun DetalleCasoScreen(
     caso: CasoImpacto?,

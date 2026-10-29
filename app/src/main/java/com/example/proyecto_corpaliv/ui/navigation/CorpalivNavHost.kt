@@ -39,13 +39,7 @@ import com.example.proyecto_corpaliv.ui.screens.programas.DetalleProgramaScreen
 import com.example.proyecto_corpaliv.ui.screens.programas.ProgramasScreen
 import com.example.proyecto_corpaliv.ui.screens.solicitudes.SolicitudesScreen
 
-/**
- * Contenedor principal de la aplicación.
- *
- * Se usa un único `Scaffold` que aporta la barra superior y la barra de
- * navegación inferior a todas las pantallas. Esto evita duplicar barras e
- * insets, y mantiene la navegación y la jerarquía visual consistentes.
- */
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CorpalivApp(

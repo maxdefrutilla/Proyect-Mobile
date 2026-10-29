@@ -39,12 +39,6 @@ import com.example.proyecto_corpaliv.ui.components.EstadoVacio
 import com.example.proyecto_corpaliv.ui.components.EtiquetaInformativa
 import com.example.proyecto_corpaliv.ui.components.IconosContenido
 
-/**
- * Detalle de un programa de inclusión laboral.
- *
- * Recibe el programa ya resuelto: la búsqueda por identificador ocurre en el
- * host de navegación, de modo que la pantalla solo se ocupa de presentarlo.
- */
 @Composable
 fun DetalleProgramaScreen(
     programa: ProgramaInclusional?,

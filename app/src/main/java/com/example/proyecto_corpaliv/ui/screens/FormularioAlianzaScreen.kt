@@ -174,52 +174,6 @@ fun FormularioAlianzaScreen(
             singleLine = true
         )
 
-        // Teléfono de contacto
-        OutlinedTextField(
-            value = telefono,
-            onValueChange = { viewModel.onTelefonoChange(it) },
-            label = { Text("Teléfono de contacto") },
-            modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-            isError = telefonoError != null,
-            trailingIcon = {
-                if (telefonoError != null) {
-                    Icon(
-                        imageVector = Icons.Filled.Warning,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.error
-                    )
-                }
-            },
-            supportingText = {
-                telefonoError?.let { Text(it, color = MaterialTheme.colorScheme.error) }
-            },
-            singleLine = true
-        )
-
-        // Cantidad de trabajadores
-        OutlinedTextField(
-            value = cantidadTrabajadores,
-            onValueChange = { viewModel.onCantidadChange(it) },
-            label = { Text("Cantidad estimada de trabajadores") },
-            modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            isError = cantidadError != null,
-            trailingIcon = {
-                if (cantidadError != null) {
-                    Icon(
-                        imageVector = Icons.Filled.Warning,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.error
-                    )
-                }
-            },
-            supportingText = {
-                cantidadError?.let { Text(it, color = MaterialTheme.colorScheme.error) }
-            },
-            singleLine = true
-        )
-
         // Selector de fecha
         OutlinedTextField(
             value = fechaReunion,
@@ -250,6 +204,57 @@ fun FormularioAlianzaScreen(
                 fechaError?.let { Text(it, color = MaterialTheme.colorScheme.error) }
             }
         )
+
+
+        // Teléfono de contacto
+        OutlinedTextField(
+            value = telefono,
+            onValueChange = { viewModel.onTelefonoChange(it) },
+            label = { Text("Teléfono de contacto") },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+            isError = telefonoError != null,
+            trailingIcon = {
+                if (telefonoError != null) {
+                    Icon(
+                        imageVector = Icons.Filled.Warning,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.error
+                    )
+                }
+            },
+            supportingText = {
+                telefonoError?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+            },
+            singleLine = true
+        )
+
+
+
+        // Cantidad de trabajadores
+        OutlinedTextField(
+            value = cantidadTrabajadores,
+            onValueChange = { viewModel.onCantidadChange(it) },
+            label = { Text("Cantidad estimada de trabajadores") },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            isError = cantidadError != null,
+            trailingIcon = {
+                if (cantidadError != null) {
+                    Icon(
+                        imageVector = Icons.Filled.Warning,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.error
+                    )
+                }
+            },
+            supportingText = {
+                cantidadError?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+            },
+            singleLine = true
+        )
+
+
 
         // Switch de capacitaciones RSE
         Card(

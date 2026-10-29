@@ -16,13 +16,7 @@ import com.example.proyecto_corpaliv.data.content.CategoriaPrograma
 import com.example.proyecto_corpaliv.data.content.TipoCaso
 import com.example.proyecto_corpaliv.data.content.TipoOferta
 
-/**
- * Traduce los modelos de la capa de datos a recursos visuales.
- *
- * La capa de datos no conoce Compose ni los iconos: son las pantallas las que
- * deciden qué imagen representa cada categoría, de modo que se puede cambiar
- * la paleta o los iconos sin tocar el contenido institucional.
- */
+
 object IconosContenido {
 
     /** Icono representativo de cada categoría de programa. */

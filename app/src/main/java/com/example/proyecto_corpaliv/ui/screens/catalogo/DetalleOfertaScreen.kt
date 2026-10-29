@@ -34,9 +34,7 @@ import com.example.proyecto_corpaliv.ui.components.EstadoVacio
 import com.example.proyecto_corpaliv.ui.components.EtiquetaInformativa
 import com.example.proyecto_corpaliv.ui.components.IconosContenido
 
-/**
- * Detalle de una oferta del catálogo.
- */
+
 @Composable
 fun DetalleOfertaScreen(
     oferta: OfertaCatalogo?,
