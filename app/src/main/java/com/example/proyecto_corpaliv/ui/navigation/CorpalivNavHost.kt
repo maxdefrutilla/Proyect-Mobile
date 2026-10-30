@@ -90,7 +90,7 @@ fun CorpalivApp(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Rutas.PERFIL,
+            startDestination = Rutas.INICIO,
             modifier = Modifier.padding(innerPadding),
             enterTransition = {
                 fadeIn(tween(240)) + slideInHorizontally(tween(240)) { ancho -> ancho / 8 }
