@@ -2,15 +2,6 @@ package com.example.proyecto_corpaliv.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-/**
- * Paleta institucional de CORPALIV / Alba Lab.
- *
- * El verde representa el vínculo y la autonomía; el azul la gestión y el
- * acompañamiento; el naranja el impacto social. Todos los pares
- * (color de fondo / color de texto) están verificados para cumplir el nivel
- * AA de contraste de WCAG 2.1 (mínimo 4.5:1 en texto normal).
- */
-
 // ---- Verde institucional (primario) ----
 val Verde10 = Color(0xFF00201B)
 val Verde20 = Color(0xFF003731)

@@ -254,7 +254,6 @@ fun FormularioAlianzaScreen(
         )
 
 
-
         // Switch de capacitaciones RSE
         Card(
             modifier = Modifier.fillMaxWidth(),
