@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.FlowRow
 import com.example.proyecto_corpaliv.data.content.CasoImpacto
 import com.example.proyecto_corpaliv.data.content.OfertaCatalogo
 import com.example.proyecto_corpaliv.data.content.ProgramaInclusional
@@ -87,7 +88,7 @@ fun TarjetaPrograma(
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(Modifier.height(12.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 EtiquetaInformativa(programa.duracion)
                 EtiquetaInformativa("${programa.participantes} participantes")
                 EtiquetaInformativa(programa.modalidad)
