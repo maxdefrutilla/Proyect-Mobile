@@ -3,20 +3,21 @@ package com.example.proyecto_corpaliv.ui.theme
 import androidx.compose.ui.graphics.Color
 
 // ---- Verde institucional (primario) ----
-val Verde10 = Color(0xFF00201B)
-val Verde20 = Color(0xFF003731)
-val Verde40 = Color(0xFF00695C)
+
+val Verde10 = Color(0xFFE19698)
+val Verde20 = Color(0xFFCE5281)
+val Verde40 = Color(0xFFD3618B)
 val Verde50 = Color(0xFF0E8171)
-val Verde80 = Color(0xFF5FDBC8)
-val Verde90 = Color(0xFF8FF8E3)
+val Verde80 = Color(0xFFF5B5C9)
+val Verde90 = Color(0xFFFFFFFF)
 val Verde95 = Color(0xFFB6FFF2)
 
 // ---- Azul de acompañamiento (secundario) ----
 val Azul10 = Color(0xFF001C38)
-val Azul20 = Color(0xFF07305C)
-val Azul40 = Color(0xFF1A5C9A)
-val Azul80 = Color(0xFFA8C8FA)
-val Azul90 = Color(0xFFD3E4FF)
+val Azul20 = Color(0xFF50145D)
+val Azul40 = Color(0xFFE4AFF5)
+val Azul80 = Color(0xFFFA98B8)
+val Azul90 = Color(0xFFFA9DBC)
 val Azul95 = Color(0xFFE7F0FF)
 
 // ---- Naranja de impacto (terciario) ----
