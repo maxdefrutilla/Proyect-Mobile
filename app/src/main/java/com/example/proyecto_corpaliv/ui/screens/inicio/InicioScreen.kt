@@ -191,8 +191,8 @@ fun InicioScreen(
 
         item(key = "noticias_externas") {
             EncabezadoSeccion(
-                titulo = "Comunicados Oficiales (API Externa)",
-                subtitulo = "Información sincronizada en tiempo real desde servicio externo."
+                titulo = "Comunicados Oficiales",
+                subtitulo = "Información sincronizada en tiempo real."
             )
             Spacer(Modifier.height(8.dp))
 
