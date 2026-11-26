@@ -28,7 +28,7 @@ private data class ItemMenu(
 private val ItemsMenu = listOf(
     ItemMenu(Rutas.PERFIL, "Perfil", Icons.Filled.Person),
     ItemMenu(Rutas.INICIO, "Inicio", Icons.Filled.Home),
-    ItemMenu(Rutas.PROGRAMAS, "Programas", Icons.Filled.Work),
+    ItemMenu(Rutas.PROGRAMAS, "Programa", Icons.Filled.Work),
     ItemMenu(Rutas.IMPACTO, "Impacto", Icons.Filled.VolunteerActivism),
     ItemMenu(Rutas.CATALOGO, "Catálogo", Icons.Filled.Storefront),
     ItemMenu(Rutas.AUTH, "Acceso", Icons.AutoMirrored.Filled.Login)
