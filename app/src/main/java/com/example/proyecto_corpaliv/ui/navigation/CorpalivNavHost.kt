@@ -19,6 +19,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -28,6 +29,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.proyecto_corpaliv.data.content.ContenidoRepository
+import com.example.proyecto_corpaliv.ui.screens.AuthScreen
 import com.example.proyecto_corpaliv.ui.screens.FormularioAlianzaScreen
 import com.example.proyecto_corpaliv.ui.screens.PerfilScreen
 import com.example.proyecto_corpaliv.ui.screens.catalogo.CatalogoScreen
@@ -38,6 +40,7 @@ import com.example.proyecto_corpaliv.ui.screens.inicio.InicioScreen
 import com.example.proyecto_corpaliv.ui.screens.programas.DetalleProgramaScreen
 import com.example.proyecto_corpaliv.ui.screens.programas.ProgramasScreen
 import com.example.proyecto_corpaliv.ui.screens.solicitudes.SolicitudesScreen
+import com.example.proyecto_corpaliv.viewmodel.CatalogoViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,6 +51,8 @@ fun CorpalivApp(
 ) {
     val entradaActual by navController.currentBackStackEntryAsState()
     val rutaActual = entradaActual?.destination?.route
+    // Compartido entre el listado y el detalle para que ambos vean la misma fuente de datos.
+    val catalogoViewModel: CatalogoViewModel = viewModel()
     val mostrarBarraInferior = !Rutas.esDetalle(rutaActual) &&
         rutaActual != Rutas.CONTACTO &&
         rutaActual != Rutas.SOLICITUDES
@@ -102,7 +107,13 @@ fun CorpalivApp(
             }
         ) {
             composable(Rutas.PERFIL) {
-                PerfilScreen()
+                PerfilScreen(
+                    onOpenAuth = { navController.navigate(Rutas.AUTH) }
+                )
+            }
+
+            composable(Rutas.AUTH) {
+                AuthScreen()
             }
 
             composable(Rutas.INICIO) {
@@ -134,7 +145,8 @@ fun CorpalivApp(
 
             composable(Rutas.CATALOGO) {
                 CatalogoScreen(
-                    onOpenOferta = { id -> navController.navigate(Rutas.detalleOferta(id)) }
+                    onOpenOferta = { id -> navController.navigate(Rutas.detalleOferta(id)) },
+                    viewModel = catalogoViewModel
                 )
             }
 
@@ -179,7 +191,8 @@ fun CorpalivApp(
             ) { entrada ->
                 val id = entrada.arguments?.getString("ofertaId").orEmpty()
                 DetalleOfertaScreen(
-                    oferta = repositorio.oferta(id),
+                    ofertaId = id,
+                    viewModel = catalogoViewModel,
                     onContactar = { navController.navigate(Rutas.CONTACTO) }
                 )
             }
@@ -192,6 +205,7 @@ fun CorpalivApp(
 
 private fun tituloDeRuta(ruta: String?): String = when {
     ruta == Rutas.PERFIL -> "Registro de Empresa / Donante"
+    ruta == Rutas.AUTH -> "Acceso"
     ruta == Rutas.INICIO || ruta == null -> "CORPALIV"
     ruta == Rutas.PROGRAMAS -> "Programas"
     ruta == Rutas.IMPACTO -> "Impacto"

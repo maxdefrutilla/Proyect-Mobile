@@ -10,6 +10,7 @@ object Rutas {
     const val CONTACTO = "contacto"
     const val SOLICITUDES = "solicitudes"
     const val PERFIL = "perfil"
+    const val AUTH = "auth"
 
     // Destinos de detalle (con botón de retroceso en la barra superior)
     const val DETALLE_PROGRAMA = "detalle/programa/{programaId}"

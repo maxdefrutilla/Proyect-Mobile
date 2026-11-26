@@ -1,6 +1,7 @@
 package com.example.proyecto_corpaliv.ui.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Login
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Storefront
@@ -29,7 +30,8 @@ private val ItemsMenu = listOf(
     ItemMenu(Rutas.INICIO, "Inicio", Icons.Filled.Home),
     ItemMenu(Rutas.PROGRAMAS, "Programas", Icons.Filled.Work),
     ItemMenu(Rutas.IMPACTO, "Impacto", Icons.Filled.VolunteerActivism),
-    ItemMenu(Rutas.CATALOGO, "Catálogo", Icons.Filled.Storefront)
+    ItemMenu(Rutas.CATALOGO, "Catálogo", Icons.Filled.Storefront),
+    ItemMenu(Rutas.AUTH, "Acceso", Icons.AutoMirrored.Filled.Login)
 )
 
 @Composable

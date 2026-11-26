@@ -6,12 +6,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.proyecto_corpaliv.data.local.AppDatabase
 import com.example.proyecto_corpaliv.data.model.SolicitudAlianza
+import com.example.proyecto_corpaliv.data.remote.dto.SolicitudDto
 import com.example.proyecto_corpaliv.data.repository.SolicitudRepository
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class SolicitudViewModel(application: Application) : AndroidViewModel(application)  {
@@ -22,11 +21,19 @@ class SolicitudViewModel(application: Application) : AndroidViewModel(applicatio
         repository = SolicitudRepository(database.solicitudDao())
     }
 
-    val listaSolicitudes = repository.todasLasSolicitudes.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        emptyList()
-    )
+    // --- Listado que viene del microservicio ---
+
+    private val _listaSolicitudes = MutableStateFlow<List<SolicitudDto>>(emptyList())
+    val listaSolicitudes: StateFlow<List<SolicitudDto>> = _listaSolicitudes.asStateFlow()
+
+    private val _cargando = MutableStateFlow(false)
+    val cargando: StateFlow<Boolean> = _cargando.asStateFlow()
+
+    private val _error = MutableStateFlow<String?>(null)
+    val error: StateFlow<String?> = _error.asStateFlow()
+
+    // --- Estado del formulario ---
+
     private val _nombreEmpresa = MutableStateFlow("")
     val nombreEmpresa: StateFlow<String> = _nombreEmpresa.asStateFlow()
 
@@ -48,7 +55,7 @@ class SolicitudViewModel(application: Application) : AndroidViewModel(applicatio
     private val _aceptaTerminos = MutableStateFlow(false)
     val aceptaTerminos: StateFlow<Boolean> = _aceptaTerminos.asStateFlow()
 
-    //Validacion de errores
+    // Validacion de errores
     private val _nombreError = MutableStateFlow<String?>(null)
     val nombreError: StateFlow<String?> = _nombreError.asStateFlow()
 
@@ -67,11 +74,11 @@ class SolicitudViewModel(application: Application) : AndroidViewModel(applicatio
     private val _terminosError = MutableStateFlow<String?>(null)
     val terminosError: StateFlow<String?> = _terminosError.asStateFlow()
 
-    //Envio exitosos
+    // Envio exitoso
     private val _guardadoExitoso = MutableStateFlow(false)
     val guardadoExitoso: StateFlow<Boolean> = _guardadoExitoso.asStateFlow()
 
-    //Actualizacion de valores
+    // Actualizacion de valores
     fun onNombreChange(valor: String) {
         _nombreEmpresa.value = valor
         if (_nombreError.value != null) _nombreError.value = null
@@ -106,7 +113,7 @@ class SolicitudViewModel(application: Application) : AndroidViewModel(applicatio
         if (_terminosError.value != null) _terminosError.value = null
     }
 
-    //Logica de las validaciones
+    // Logica de las validaciones
     fun validarFormulario(): Boolean {
         var esValido = true
 
@@ -153,24 +160,103 @@ class SolicitudViewModel(application: Application) : AndroidViewModel(applicatio
         return esValido
     }
 
+    /**
+     * Valida el formulario, envía un POST al microservicio y guarda una copia en Room.
+     * Si el servidor no responde, la solicitud queda guardada localmente como respaldo.
+     */
     fun guardarSolicitud() {
         if (!validarFormulario()) return
 
         viewModelScope.launch {
-            val nuevaSolicitud = SolicitudAlianza(
-                nombreEmpresa = _nombreEmpresa.value,
-                emailContacto = _emailContacto.value,
-                telefono = _telefono.value,
+            _error.value = null
+
+            val solicitud = SolicitudDto(
+                nombreEmpresa = _nombreEmpresa.value.trim(),
+                emailContacto = _emailContacto.value.trim(),
+                telefono = _telefono.value.trim(),
                 cantidadTrabajadores = _cantidadTrabajadores.value.toInt(),
                 fechaReunion = _fechaReunion.value,
                 requiereCapacitacion = _requiereCapacitacion.value,
-                aceptaTerminos = _aceptaTerminos.value
+                aceptaTerminos = _aceptaTerminos.value,
+                estado = "PENDIENTE"
             )
 
-            repository.insertar(nuevaSolicitud)
-            _guardadoExitoso.value = true
-            limpiarFormulario()
+            try {
+                repository.crearRemota(solicitud)
+                guardarCopiaLocal(solicitud)
+                _guardadoExitoso.value = true
+                limpiarFormulario()
+            } catch (e: Exception) {
+                guardarCopiaLocal(solicitud)
+                _error.value = "No se pudo conectar con el servidor. " +
+                    "La solicitud quedó guardada en el dispositivo."
+            }
         }
+    }
+
+    private suspend fun guardarCopiaLocal(solicitud: SolicitudDto) {
+        repository.insertar(
+            SolicitudAlianza(
+                nombreEmpresa = solicitud.nombreEmpresa,
+                emailContacto = solicitud.emailContacto,
+                telefono = solicitud.telefono,
+                cantidadTrabajadores = solicitud.cantidadTrabajadores,
+                fechaReunion = solicitud.fechaReunion,
+                requiereCapacitacion = solicitud.requiereCapacitacion,
+                aceptaTerminos = solicitud.aceptaTerminos
+            )
+        )
+    }
+
+    // --- Operaciones de red para el listado ---
+
+    /** GET /api/solicitudes: recarga la lista desde el microservicio. */
+    fun cargarSolicitudes() {
+        viewModelScope.launch { refrescar() }
+    }
+
+    private suspend fun refrescar() {
+        _cargando.value = true
+        _error.value = null
+        try {
+            _listaSolicitudes.value = repository.listarRemotas()
+        } catch (e: Exception) {
+            _error.value = e.message ?: "Error desconocido al cargar las solicitudes"
+        } finally {
+            _cargando.value = false
+        }
+    }
+
+    /** PUT /api/solicitudes/{id}: cambia el estado y vuelve a consultar el listado. */
+    fun cambiarEstado(solicitud: SolicitudDto, nuevoEstado: String) {
+        val id = solicitud.id ?: return
+        viewModelScope.launch {
+            try {
+                repository.actualizarRemota(id, solicitud.copy(estado = nuevoEstado))
+                refrescar()
+            } catch (e: Exception) {
+                _error.value = e.message ?: "No se pudo actualizar el estado"
+                _cargando.value = false
+            }
+        }
+    }
+
+    /** DELETE /api/solicitudes/{id}: elimina en el servidor y vuelve a consultar el listado. */
+    fun eliminarSolicitud(solicitud: SolicitudDto) {
+        val id = solicitud.id ?: return
+        viewModelScope.launch {
+            try {
+                repository.eliminarRemota(id)
+                refrescar()
+            } catch (e: Exception) {
+                _error.value = e.message ?: "No se pudo eliminar la solicitud"
+                _cargando.value = false
+            }
+        }
+    }
+
+    fun limpiarError() {
+        _error.value = null
     }
 
     fun reiniciarEstadoGuardado() {

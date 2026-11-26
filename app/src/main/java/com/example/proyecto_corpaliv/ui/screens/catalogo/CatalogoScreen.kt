@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -24,7 +25,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -32,7 +35,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -53,6 +58,11 @@ fun CatalogoScreen(
     val ofertas by viewModel.resultados.collectAsStateWithLifecycle()
     val textoBusqueda by viewModel.busqueda.collectAsStateWithLifecycle()
     val tipoActivo by viewModel.tipoSeleccionado.collectAsStateWithLifecycle()
+    val cargando by viewModel.cargando.collectAsStateWithLifecycle()
+    val error by viewModel.error.collectAsStateWithLifecycle()
+
+    // GET al entrar al catálogo; el botón de actualizar permite volver a consultar.
+    LaunchedEffect(Unit) { viewModel.cargarCatalogo() }
 
     Column(
         modifier = modifier
@@ -60,10 +70,26 @@ fun CatalogoScreen(
             .background(MaterialTheme.colorScheme.background)
     ) {
         Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
-            EncabezadoSeccion(
-                titulo = "Catálogo",
-                subtitulo = "Productos del taller, servicios de inclusión e iniciativas RSE."
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    EncabezadoSeccion(
+                        titulo = "Catálogo",
+                        subtitulo = "Productos del catálogo solidario, obtenidos desde el servidor."
+                    )
+                }
+                if (cargando) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        strokeWidth = 2.dp
+                    )
+                }
+                IconButton(onClick = { viewModel.cargarCatalogo() }) {
+                    Icon(
+                        imageVector = Icons.Filled.Refresh,
+                        contentDescription = "Actualizar catálogo"
+                    )
+                }
+            }
             Spacer(Modifier.height(12.dp))
             OutlinedTextField(
                 value = textoBusqueda,
@@ -117,6 +143,14 @@ fun CatalogoScreen(
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+            if (error != null) {
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    text = error.orEmpty(),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
         }
 
         Box(Modifier.weight(1f)) {

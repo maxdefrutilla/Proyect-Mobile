@@ -20,7 +20,10 @@ import com.example.proyecto_corpaliv.data.UsuarioEntity
 import kotlinx.coroutines.launch
 
 @Composable
-fun PerfilScreen() {
+fun PerfilScreen(
+    onOpenAuth: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val db = remember { AppDatabase.getDatabase(context) }
@@ -43,7 +46,7 @@ fun PerfilScreen() {
     }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
             .verticalScroll(rememberScrollState()),
@@ -118,6 +121,15 @@ fun PerfilScreen() {
 
 
         Spacer(modifier = Modifier.height(24.dp))
+
+        OutlinedButton(
+            onClick = onOpenAuth,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Iniciar sesión / Registrarse")
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
 
         Button(
             onClick = {

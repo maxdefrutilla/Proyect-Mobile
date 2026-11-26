@@ -22,25 +22,32 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.example.proyecto_corpaliv.data.content.OfertaCatalogo
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.proyecto_corpaliv.ui.components.AvisoDatosFicticios
 import com.example.proyecto_corpaliv.ui.components.EncabezadoSeccion
 import com.example.proyecto_corpaliv.ui.components.EstadoVacio
 import com.example.proyecto_corpaliv.ui.components.EtiquetaInformativa
 import com.example.proyecto_corpaliv.ui.components.IconosContenido
+import com.example.proyecto_corpaliv.viewmodel.CatalogoViewModel
 
 
 @Composable
 fun DetalleOfertaScreen(
-    oferta: OfertaCatalogo?,
+    ofertaId: String,
     onContactar: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: CatalogoViewModel = viewModel()
 ) {
+    val ofertas by viewModel.resultados.collectAsStateWithLifecycle()
+    val oferta = ofertas.firstOrNull { it.id == ofertaId } ?: viewModel.ofertaFallback(ofertaId)
+
     if (oferta == null) {
         EstadoVacio(
             mensaje = "No encontramos esta oferta. Vuelve al catálogo e inténtalo otra vez.",

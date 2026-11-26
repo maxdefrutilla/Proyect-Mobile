@@ -79,6 +79,7 @@ fun FormularioAlianzaScreen(
     val terminosError by viewModel.terminosError.collectAsStateWithLifecycle()
 
     val guardadoExitoso by viewModel.guardadoExitoso.collectAsStateWithLifecycle()
+    val error by viewModel.error.collectAsStateWithLifecycle()
 
     // Retroalimentación al guardar correctamente
     LaunchedEffect(guardadoExitoso) {
@@ -89,6 +90,14 @@ fun FormularioAlianzaScreen(
                 Toast.LENGTH_LONG
             ).show()
             viewModel.reiniciarEstadoGuardado()
+        }
+    }
+
+    // Retroalimentación si el servidor no está disponible
+    LaunchedEffect(error) {
+        error?.let {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+            viewModel.limpiarError()
         }
     }
 
